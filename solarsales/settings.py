@@ -32,7 +32,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+                 ]
 
 
 # Application definition
@@ -54,9 +56,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,6 +69,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    # Add your allowed origins here
+    'http://localhost:3000',  # Example: Allow requests from http://localhost:3000
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
 
 ROOT_URLCONF = 'solarsales.urls'
 
