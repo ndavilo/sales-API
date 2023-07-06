@@ -16,6 +16,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAdminUser]
+    
+class CategoryListSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
