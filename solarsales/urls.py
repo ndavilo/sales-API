@@ -28,6 +28,6 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('ratings/', include('ratings.urls')),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('schema/doc/', SpectacularSwaggerView.as_view(url_name="schema"), name='Doc'),
+    path('', SpectacularSwaggerView.as_view(url_name="schema"), name='Doc'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

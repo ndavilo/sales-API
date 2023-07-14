@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 from datetime import timedelta
 import os
+import boto3
 from dotenv import load_dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -32,9 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-                 ]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -57,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
     'corsheaders',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -192,3 +192,15 @@ SIMPLE_JWT = {
 }
 AUTH_USER_MODEL = 'allusers.User'
 
+# AWS S3 Configurations
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+# Configuring S3 as the storage backend
+AWS_STORAGE_BUCKET_NAME = 'solar-sales-s3-bucket'
+AWS_S3_REGION_NAME = 'us-east-2'  # e.g., 'us-east-1' or 'eu-west-2'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com/images' %AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE = False
